@@ -66,6 +66,12 @@ document.addEventListener('DOMContentLoaded', async function() {
     const manifest = JSON.parse(manifestEl.textContent);
     let template = JSON.parse(templateEl.textContent);
 
+    // Keep the mobile category row swipeable without showing a scrollbar.
+    template = template.replace(
+      '</head>',
+      '<style>html,body{max-width:100%;overflow-x:hidden}header>div:nth-of-type(2)>div{scrollbar-width:none;-ms-overflow-style:none;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}header>div:nth-of-type(2)>div::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}</style></head>'
+    );
+
     // Nested page bundles (iframe targets). Each ships ONCE, in the ROOT
     // document's manifest; frame srcs carry an about:blank#<uuid> marker
     // instead of a substitutable uuid. Every document mints the blobs for
